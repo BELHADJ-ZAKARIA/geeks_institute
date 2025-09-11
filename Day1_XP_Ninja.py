@@ -68,3 +68,110 @@ while (True):
     print("Try Again\n")
 
   count = 0
+
+
+"""
+Exercise 3: Working on a paragraph
+
+Find an interesting paragraph of text online. (Please keep it appropriate to the social context of our class.)
+Paste it to your code, and store it in a variable.
+Let’s analyze the paragraph. Print out a nicely formatted message saying:
+* How many characters it contains (this one is easy…).
+* How many sentences it contains.
+* How many words it contains.
+* How many unique words it contains.
+
+Bonus: How many non-whitespace characters it contains.
+Bonus: The average amount of words per sentence in the paragraph.
+Bonus: the amount of non-unique words in the paragraph.
+"""
+"""
+paragraph : 
+"Variables are places where we can keep information for a short time. 
+A variable is like a small box where we can put any kind of information (text, numbers...).
+Every variable has two parts: a name and a value. The value can be any type of information. 
+We can use what's inside our box to do things with the stored information."
+"""
+
+import string
+import math
+
+paragraph = "Variables are places where we can keep information for a short time. A variable is like a small box where we can put any kind of information (text, numbers...). Every variable has two parts: a name and a value. The value can be any type of information. We can use what's inside our box to do things with the stored information."
+
+sentence = []
+num_word_in_sentence = []
+count = 0
+
+list_of_non_whitespace = []
+nwspace_count = 0
+
+flag = 0
+word_count = 0
+
+words = []
+words_capitalize = []
+word = ""
+
+list_unique_words = []
+unique_words = 0
+
+list_non_unique_words = []
+non_unique_words = 0
+
+
+print(f"Number of characters : {len(paragraph)}\n")
+
+for i in range(0, len(paragraph)-1):
+  if paragraph[i] in string.punctuation:
+    nwspace_count += 1
+    list_of_non_whitespace.append(paragraph[i])
+    if paragraph[i+1] != "." and paragraph[i+1] != ")":
+      if paragraph[i] == ".":
+        count += 1
+        sentence.append(paragraph[flag:i])
+        flag = i
+
+print(f"Number of sentences in the paragraph : {count}\n")
+
+new_sentence = [i.strip(" .")for i in sentence]
+#print(f"The sentences in paragraph : {new_sentence}")
+
+
+for i in range(0, len(paragraph)-1):
+  if paragraph[i] != " " and paragraph[i] not in string.punctuation:
+    word += paragraph[i]
+  elif paragraph[i] == " ":
+    words.append(word)
+    word = ""
+
+print(f"Number of words in the paragraph : {len(words)}\n")
+#print(f"The words in paragraph : {words}")
+
+words_capitalize = [i.capitalize() for i in words]
+
+for i in words_capitalize:
+  if words_capitalize.count(i) == 1:
+    unique_words += 1
+    list_unique_words.append(i)
+  else:
+    list_non_unique_words.append(i)
+
+
+print(f"Number of unique words in the paragraph : {unique_words}")
+print(f"List of unique words in the paragraph : {list_unique_words}\n")
+
+print(f"Number of non-whitespace characters in the paragraph : {nwspace_count}")
+print(f"List of non whitespace characters in the paragraph : {list_of_non_whitespace}\n")
+
+for i in range(0, len(new_sentence)):
+  word_count = 1
+  for j in new_sentence[i]:
+    if j == " " or j == "\n":
+      word_count += 1
+  num_word_in_sentence.append(word_count)
+
+print(f"The average amount of words per sentence in the paragraph : {round(sum(num_word_in_sentence)/len(num_word_in_sentence))}")
+print(f"Number of words per sentence {num_word_in_sentence}\n")
+
+print(f"The amount of non-unique words in the paragraph : {len(set(list_non_unique_words))}")
+print(set(list_non_unique_words))
